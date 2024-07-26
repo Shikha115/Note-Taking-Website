@@ -1,0 +1,64 @@
+header {
+  .search-input {
+    background: #4f4f4f;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+    border-radius: 5px;
+    color: #fff;
+    svg {
+      width: 24px;
+      color: gray;
+    }
+
+    input {
+      background: inherit;
+
+      &:focus-visible {
+        outline: 0;
+      }
+    }
+  }
+}
+
+.note-cards {
+  .cards {
+    background: #4f4f4f;
+  }
+}
+
+.cards-pagination {
+  ul[aria-label="Pagination"] {
+    display: flex;
+    color: #fff;
+    gap: 10px;
+    justify-content: center;
+    li {
+      a {
+        border: 1px solid #ffffff30;
+        padding: 5px 15px;
+        border-radius: 4px;
+        background: transparent;
+        text-transform: capitalize;
+        font-weight: 600;
+      }
+      &.selected {
+        a {
+          background: #3b82f6;
+        }
+      }
+      &.disabled {
+        a {
+          opacity: 0.5;
+        }
+      }
+      &.previous,
+      &.next {
+        a {
+          background: #eab308;
+        }
+      }
+    }
+  }
+}
