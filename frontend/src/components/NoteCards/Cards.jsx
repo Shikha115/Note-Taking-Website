@@ -8,7 +8,7 @@ import {
 import CardModal from "./CardModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setItemsInLocalStorage } from "../../utils/localStorage";
-import { getCardDataOnClick } from "../../slices/CardSlice";
+import { getCardDataOnClick, setDelete } from "../../slices/CardSlice";
 
 function Cards({ notes }) {
   const [operationModal, setOperationModal] = useState(false);
@@ -22,9 +22,12 @@ function Cards({ notes }) {
   }, [notes]);
 
   const deleteNote = (id) => {
-    const afterDeleteItem = notesList.filter((note) => note.id !== id);
-    setItemsInLocalStorage(afterDeleteItem);
-    setNotesList(afterDeleteItem);
+    // const afterDeleteItem = notesList.filter((note) => note.id !== id);
+    // setItemsInLocalStorage(afterDeleteItem);
+    // setNotesList(afterDeleteItem);
+    dispatch(setDelete(id));
+    
+    // window.location.reload();
   };
 
   const editNote = (id) => {

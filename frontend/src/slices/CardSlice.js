@@ -17,8 +17,13 @@ export const CardSlice = createSlice({
     setSearchInput: (state, action) => {
       state.searchInput = action.payload;
     },
+    setDelete: (state, { payload }) => {
+      console.log('delete payload',payload);
+      state.data = state.data.filter((note) => note.id != payload);
+      setItemsInLocalStorage(state.data);
+      window.location.reload();
+    },
     setAdd: (state, { payload }) => {
-      //add
       let ID = state.data.length + 1;
       state.data = [
         ...state.data,
@@ -48,6 +53,6 @@ export const CardSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setSearchInput, setAdd, getCardDataOnClick, setEdit } = CardSlice.actions;
+export const { setSearchInput, setAdd, getCardDataOnClick, setEdit,setDelete } = CardSlice.actions;
 
 export default CardSlice.reducer;
