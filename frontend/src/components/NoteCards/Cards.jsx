@@ -9,8 +9,8 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import CardModal from "./CardModal";
 import { useSelector } from "react-redux";
 
-function Cards({ notes }) {
-  //input
+function Cards({ notes, handleCreate, handleUpdate, handleDelete }) {
+
   const [operationModal, setOperationModal] = useState(false);
   const [operation, setOperation] = useState("add");
   const [deleteModal, setDeleteModal] = useState(false);
@@ -38,7 +38,7 @@ function Cards({ notes }) {
       <div className="note-cards">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-            {notes &&
+            {notes ? (
               notes
                 // .filter(({ title }) =>
                 //   title.toLowerCase().includes(input.toLowerCase())
@@ -76,7 +76,10 @@ function Cards({ notes }) {
                       </button>
                     </div>
                   </div>
-                ))}
+                ))
+            ) : (
+              <h1 className="text-white">Your Notes will be display Here</h1>
+            )}
           </div>
         </div>
       </div>

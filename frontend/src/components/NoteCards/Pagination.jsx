@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import Cards from "./Cards";
-
+import {getItemsFromLocalStorage, setItemsInLocalStorage} from "../../utils/localStorage"
 // Example items, to simulate fetching from another resources.
 const items = [
   {
@@ -66,30 +66,47 @@ const items = [
   },
 ];
 
-function Pagination({ itemsPerPage, input }) {
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
+function Pagination({ itemsPerPage }) {
+  const [items, setItems] = useState(getItemsFromLocalStorage());
   const [itemOffset, setItemOffset] = useState(0);
 
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
-  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
-  // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
-    // console.log(
-    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
-    // );
     setItemOffset(newOffset);
   };
+
+  const handleCreate = (newItem) => {
+    const newItems = [...items, newItem];
+    setItems(newItems);
+    setItemsInLocalStorage(newItems);
+  };
+
+  const handleUpdate = (updatedItem) => {
+    const newItems = items.map((item) =>
+      item._id === updatedItem._id ? updatedItem : item
+    );
+    setItems(newItems);
+    setItemsInLocalStorage(newItems);
+  };
+
+  const handleDelete = (deletedItem) => {
+    const newItems = items.filter((item) => item._id !== deletedItem._id);
+    setItems(newItems);
+    setItemsInLocalStorage(newItems);
+  };
+
   return (
     <div className="cards-pagination">
-      <Cards notes={currentItems} input={input} />
+      <Cards
+        notes={currentItems}
+        onCreate={handleCreate}
+        onUpdate={handleUpdate}
+        onDelete={handleDelete}
+      />
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"
