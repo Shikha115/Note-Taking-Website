@@ -13,14 +13,15 @@ import logo from "../assets/images/logo.png";
 import "../assets/scss/style.scss";
 import CardModal from "./NoteCards/CardModal";
 import { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import { setInput } from "../slices/CardSearchSlice";
 
-function Header() { //{ setInput, input }
+function Header() {
+  //{ setInput, input }
   const [operationModal, setOperationModal] = useState(false);
   const [operation, setOperation] = useState("add");
-  const input = useSelector((state) => state.CardSearch.input)
-  const dispatch = useDispatch()
+  const input = useSelector((state) => state.CardSearch.input);
+  const dispatch = useDispatch();
   return (
     <header>
       <Disclosure as="nav" className="bg-gray-800">
@@ -70,7 +71,9 @@ function Header() { //{ setInput, input }
                   type="search"
                   placeholder="Search"
                   value={input}
-                  onChange={(e) => dispatch(setInput(e.target.value))}
+                  onChange={(e) =>
+                    dispatch(setInput(e.target.value))
+                  }
                 />
               </div>
 
