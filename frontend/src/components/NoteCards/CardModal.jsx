@@ -7,16 +7,15 @@ import {
 } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setData } from "../../slices/CardSearchSlice";
-import { setItemsInLocalStorage } from "../../utils/localStorage";
 
 function CardModal({ operationModal, setOperationModal, operation }) {
   const [inputData, setInputData] = useState({});
   const dispatch = useDispatch();
-
+  const viewData = useSelector((state) => state.CardSearch.viewData);
+  console.log("🚀 ~ CardModal ~ viewData:", viewData);
   const Check = (inputData) => {
     setOperationModal(false);
     dispatch(setData(inputData));
-
   };
   return (
     <Dialog
@@ -53,34 +52,48 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                       <label>Title</label>
                       <input
                         type="text"
-                        value={inputData.title}
+                        value={
+                          operation == "add"
+                            ? inputData.title
+                            : operation == "view"
+                            ? viewData.title
+                            : ""
+                        }
                         className="mt-1 border block w-full px-3 py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
                         onChange={(e) =>
                           setInputData((prev) => {
                             return { ...prev, title: e.target.value };
                           })
                         }
-                        readOnly={operation=='view'?true:false}
+                        readOnly={operation == "view" ? true : false}
                       />
                     </div>
                     <div className="mb-3">
                       <label>Content</label>
                       <input
                         type="text"
-                        value={inputData.content}
+                        value={
+                          operation == "add"
+                            ? inputData.content
+                            : operation == "view"
+                            ? viewData.content
+                            : ""
+                        }
                         className="mt-1 border block w-full px-3 py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
                         onChange={(e) =>
                           setInputData((prev) => {
                             return { ...prev, content: e.target.value };
                           })
                         }
-                        readOnly={operation=='view'?true:false}
+                        readOnly={operation == "view" ? true : false}
                       />
                     </div>
                     <div className="bg-gray-50 py-3 sm:flex sm:flex-row-reverse">
                       <button
                         type="button"
-                        onClick={() => {Check(inputData)}}
+                        onClick={() => {
+                          Check(inputData);
+                        }}
                         className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
                       >
                         Submit
