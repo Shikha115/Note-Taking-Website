@@ -1,13 +1,13 @@
 import React from "react";
 import {
-    Dialog,
-    DialogBackdrop,
-    DialogPanel,
-    DialogTitle,
-  } from "@headlessui/react";
-  import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
-function CardModal({ operationModal, setOperationModal,operation }) {
+function CardModal({ operationModal, setOperationModal, operation }) {
   return (
     <Dialog
       open={operationModal}
@@ -38,13 +38,15 @@ function CardModal({ operationModal, setOperationModal,operation }) {
                     : "View Note"}
                 </DialogTitle>
                 <div className="mt-3 text-center sm:mt-0 sm:text-left">
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Are you sure you want to deactivate your account? All of
-                      your data will be permanently removed. This action cannot
-                      be undone.
-                    </p>
-                  </div>
+                  <form action="">
+                    <div className="mb-3">
+                      <label>Title</label>
+                      <input
+                        type="text"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                      />
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
