@@ -66,7 +66,7 @@ const items = [
   },
 ];
 
-function Pagination({ itemsPerPage }) {
+function Pagination({ itemsPerPage, input }) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
@@ -89,7 +89,7 @@ function Pagination({ itemsPerPage }) {
   };
   return (
     <div className="cards-pagination">
-      <Cards notes={currentItems} />
+      <Cards notes={currentItems} input={input} />
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"
