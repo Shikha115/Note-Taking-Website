@@ -15,7 +15,6 @@ function Cards({ notes }) {
   const [operation, setOperation] = useState("add");
   const [deleteModal, setDeleteModal] = useState(false);
   const input = useSelector((state) => state.CardSearch.input);
-  console.log(input, "input");
   const deleteNote = (id) => {
     setDeleteModal(true);
     setNoteList(noteList.filter((note) => note._id !== id));

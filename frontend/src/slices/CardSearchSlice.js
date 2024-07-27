@@ -8,9 +8,9 @@ export const CardSearchSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    setInput: (state, val) => {
-        console.log(state,val,'cardserach');
-      state.input = val;
+    setInput: (state, action) => {
+      console.log("🚀 ~ action:", action);
+      state.input = action.payload;
     },
   },
 });
