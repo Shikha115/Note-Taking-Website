@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-    Dialog,
-    DialogBackdrop,
-    DialogPanel,
-    DialogTitle,
-  } from "@headlessui/react";
-  import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
+import { setData } from "../../slices/CardSearchSlice";
 
-function CardModal({ operationModal, setOperationModal,operation }) {
+function CardModal({ operationModal, setOperationModal, operation }) {
+  const [data, setData] = useState({});
+  const dispatch = useDispatch();
   return (
     <Dialog
       open={operationModal}
@@ -38,23 +42,39 @@ function CardModal({ operationModal, setOperationModal,operation }) {
                     : "View Note"}
                 </DialogTitle>
                 <div className="mt-3 text-center sm:mt-0 sm:text-left">
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Are you sure you want to deactivate your account? All of
-                      your data will be permanently removed. This action cannot
-                      be undone.
-                    </p>
-                  </div>
+                  <form action="">
+                    <div className="mb-3">
+                      <label>Title</label>
+                      <input
+                        type="text"
+                        value={data.content}
+                        className="mt-1 border block w-full py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
+                        onChange={(e) => setData({ title: e.target.value })}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label>Content</label>
+                      <input
+                        type="text"
+                        value={data.content}
+                        className="mt-1 border block w-full py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
+                        onChange={(e) => setData({ content: e.target.value })}
+                      />
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
                 type="button"
-                onClick={() => setOperationModal(false)}
-                className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                onClick={() => {
+                  setOperationModal(false);
+                  dispatch(setData(data));
+                }}
+                className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
               >
-                Deactivate
+                Submit
               </button>
               <button
                 type="button"
