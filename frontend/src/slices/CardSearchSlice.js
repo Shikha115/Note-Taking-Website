@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { setItemsInLocalStorage } from "../utils/localStorage";
 
 const initialState = {
   input: "",
@@ -18,13 +19,13 @@ export const CardSearchSlice = createSlice({
       state.input = action.payload;
     },
     setData: (state, action) => {
-      state.data=[...state.data,...action.payload]
+      state.data = [...state.data, ...action.payload];
+      setItemsInLocalStorage(state.data)
     },
-    
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setInput,setData } = CardSearchSlice.actions;
+export const { setInput, setData } = CardSearchSlice.actions;
 
 export default CardSearchSlice.reducer;
