@@ -6,16 +6,20 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { setData } from "../../slices/CardSearchSlice";
+import { setAdd, setEdit } from "../../slices/CardSlice";
 
 function CardModal({ operationModal, setOperationModal, operation }) {
   const [inputData, setInputData] = useState({});
   const dispatch = useDispatch();
-  const viewData = useSelector((state) => state.CardSearch.viewData);
-  console.log("🚀 ~ CardModal ~ viewData:", viewData);
-  const Check = (inputData) => {
+  const cardDataOnClick = useSelector((state) => state.CardSlice.cardDataOnClick);
+  console.log("🚀 ~ CardModal ~ cardDataOnClick:", cardDataOnClick);
+  const addCheck = (inputData) => {
     setOperationModal(false);
-    dispatch(setData(inputData));
+    dispatch(setAdd(inputData));
+  };
+  const editCheck = (id) => {
+    setOperationModal(false);
+    dispatch(setEdit({ id, inputData }));
   };
   return (
     <Dialog
@@ -52,11 +56,11 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                       <label>Title</label>
                       <input
                         type="text"
-                        value={
+                        defaultValue={
                           operation == "add"
                             ? inputData.title
-                            : operation == "view"
-                            ? viewData.title
+                            : operation == "view" || operation == "edit"
+                            ? cardDataOnClick.title
                             : ""
                         }
                         className="mt-1 border block w-full px-3 py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
@@ -72,11 +76,11 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                       <label>Content</label>
                       <input
                         type="text"
-                        value={
+                        defaultValue={
                           operation == "add"
                             ? inputData.content
-                            : operation == "view"
-                            ? viewData.content
+                            : operation == "view" || operation == "edit"
+                            ? cardDataOnClick.content
                             : ""
                         }
                         className="mt-1 border block w-full px-3 py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
@@ -89,15 +93,22 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                       />
                     </div>
                     <div className="bg-gray-50 py-3 sm:flex sm:flex-row-reverse">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          Check(inputData);
-                        }}
-                        className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
-                      >
-                        Submit
-                      </button>
+                      {operation != "view" && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (operation == "add") {
+                              addCheck(inputData);
+                            }
+                            if (operation == "edit") {
+                              editCheck(cardDataOnClick.id);
+                            }
+                          }}
+                          className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+                        >
+                          Submit
+                        </button>
+                      )}
                       <button
                         type="button"
                         data-autofocus

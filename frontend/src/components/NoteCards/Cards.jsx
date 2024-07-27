@@ -8,35 +8,37 @@ import {
 import CardModal from "./CardModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setItemsInLocalStorage } from "../../utils/localStorage";
-import { setView } from "../../slices/CardSearchSlice";
+import { getCardDataOnClick } from "../../slices/CardSlice";
 
 function Cards({ notes }) {
   const [operationModal, setOperationModal] = useState(false);
   const [operation, setOperation] = useState("add");
   const [deleteModal, setDeleteModal] = useState(false);
   const [notesList, setNotesList] = useState(notes);
-  const input = useSelector((state) => state.CardSearch.input);
+  const searchInput = useSelector((state) => state.CardSlice.searchInput);
   const dispatch = useDispatch();
   useEffect(() => {
     setNotesList(notes);
   }, [notes]);
 
   const deleteNote = (id) => {
-    setItemsInLocalStorage(notesList.filter((note) => note.id !== id));
-    setNotesList(notesList.filter((note) => note.id !== id));
+    const afterDeleteItem = notesList.filter((note) => note.id !== id);
+    setItemsInLocalStorage(afterDeleteItem);
+    setNotesList(afterDeleteItem);
   };
 
   const editNote = (id) => {
     setOperationModal(true);
     setOperation("edit");
     console.log("Edit note", id);
+    dispatch(getCardDataOnClick(id));
     // Add your edit logic here
   };
 
   const viewNote = (id) => {
     setOperationModal(true);
     setOperation("view");
-    dispatch(setView(id));
+    dispatch(getCardDataOnClick(id));
   };
   return (
     <>
@@ -46,7 +48,7 @@ function Cards({ notes }) {
             {notesList.length ? (
               notesList
                 .filter(({ title }) =>
-                  title.toLowerCase().includes(input.toLowerCase())
+                  title.toLowerCase().includes(searchInput.toLowerCase())
                 )
                 .map((note) => (
                   <div

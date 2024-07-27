@@ -14,13 +14,12 @@ import "../assets/scss/style.scss";
 import CardModal from "./NoteCards/CardModal";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setInput } from "../slices/CardSearchSlice";
+import { setSearchInput } from "../slices/CardSlice";
 
 function Header() {
-  //{ setInput, input }
   const [operationModal, setOperationModal] = useState(false);
   const [operation, setOperation] = useState("add");
-  const input = useSelector((state) => state.CardSearch.input);
+  const searchInput = useSelector((state) => state.CardSlice.searchInput);
   const dispatch = useDispatch();
   return (
     <header>
@@ -70,9 +69,9 @@ function Header() {
                   ame="search"
                   type="search"
                   placeholder="Search"
-                  value={input}
+                  value={searchInput}
                   onChange={(e) =>
-                    dispatch(setInput(e.target.value))
+                    dispatch(setSearchInput(e.target.value))
                   }
                 />
               </div>

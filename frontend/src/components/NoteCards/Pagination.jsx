@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import Cards from "./Cards";
-import {getItemsFromLocalStorage, setItemsInLocalStorage} from "../../utils/localStorage"
 import { useSelector } from "react-redux";
 // Example items, to simulate fetching from another resources.
 const items = [
@@ -68,10 +67,10 @@ const items = [
 ];
 
 function Pagination({ itemsPerPage }) {
-  const data = useSelector((state) => state.CardSearch.data);
+  const data = useSelector((state) => state.CardSlice.data);
   const [items, setItems] = useState(data);
-  
-  console.log('items',items);
+
+  console.log("items", items);
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;
@@ -83,34 +82,9 @@ function Pagination({ itemsPerPage }) {
     setItemOffset(newOffset);
   };
 
-  const handleCreate = (newItem) => {
-    const newItems = [...items, newItem];
-    setItems(newItems);
-    setItemsInLocalStorage(newItems);
-  };
-
-  const handleUpdate = (updatedItem) => {
-    const newItems = items.map((item) =>
-      item._id === updatedItem._id ? updatedItem : item
-    );
-    setItems(newItems);
-    setItemsInLocalStorage(newItems);
-  };
-
-  const handleDelete = (deletedItem) => {
-    const newItems = items.filter((item) => item._id !== deletedItem._id);
-    setItems(newItems);
-    setItemsInLocalStorage(newItems);
-  };
-
   return (
     <div className="cards-pagination">
-      <Cards
-        notes={currentItems}
-        onCreate={handleCreate}
-        onUpdate={handleUpdate}
-        onDelete={handleDelete}
-      />
+      <Cards notes={currentItems} />
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"
