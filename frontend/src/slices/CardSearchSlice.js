@@ -2,6 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   input: "",
+  data: [
+    {
+      title: "",
+      content: "",
+    },
+  ],
 };
 
 export const CardSearchSlice = createSlice({
@@ -12,10 +18,13 @@ export const CardSearchSlice = createSlice({
       console.log("🚀 ~ action:", action);
       state.input = action.payload;
     },
+    setData: (state, action) => {
+      state.data=[...state.data,...action.payload]
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setInput } = CardSearchSlice.actions;
+export const { setInput,setData } = CardSearchSlice.actions;
 
 export default CardSearchSlice.reducer;

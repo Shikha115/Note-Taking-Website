@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -6,8 +6,12 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
+import { setData } from "../../slices/CardSearchSlice";
 
 function CardModal({ operationModal, setOperationModal, operation }) {
+  const [data, setData] = useState({});
+  const dispatch = useDispatch();
   return (
     <Dialog
       open={operationModal}
@@ -43,7 +47,18 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                       <label>Title</label>
                       <input
                         type="text"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        value={data.content}
+                        className="mt-1 border block w-full py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
+                        onChange={(e) => setData({ title: e.target.value })}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label>Content</label>
+                      <input
+                        type="text"
+                        value={data.content}
+                        className="mt-1 border block w-full py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
+                        onChange={(e) => setData({ content: e.target.value })}
                       />
                     </div>
                   </form>
@@ -53,10 +68,13 @@ function CardModal({ operationModal, setOperationModal, operation }) {
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
                 type="button"
-                onClick={() => setOperationModal(false)}
-                className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                onClick={() => {
+                  setOperationModal(false);
+                  dispatch(setData(data));
+                }}
+                className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
               >
-                Deactivate
+                Submit
               </button>
               <button
                 type="button"
