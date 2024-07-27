@@ -5,4 +5,5 @@ export const getItemsFromLocalStorage = () => {
 
 export const setItemsInLocalStorage = (newItems) => {
   localStorage.setItem("items", JSON.stringify(newItems));
+  console.log(newItems,'setItemsInLocalStorage')
 };

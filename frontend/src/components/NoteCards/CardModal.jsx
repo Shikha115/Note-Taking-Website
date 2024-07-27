@@ -8,6 +8,7 @@ import {
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { setData } from "../../slices/CardSearchSlice";
+import { setItemsInLocalStorage } from "../../utils/localStorage";
 
 function CardModal({ operationModal, setOperationModal, operation }) {
   const [data, setData] = useState({});
@@ -47,9 +48,13 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                       <label>Title</label>
                       <input
                         type="text"
-                        value={data.content}
-                        className="mt-1 border block w-full py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
-                        onChange={(e) => setData({ title: e.target.value })}
+                        value={data.title}
+                        className="mt-1 border block w-full px-3 py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
+                        onChange={(e) =>
+                          setData((prev) => {
+                            return { ...prev, title: e.target.value };
+                          })
+                        }
                       />
                     </div>
                     <div className="mb-3">
@@ -57,8 +62,12 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                       <input
                         type="text"
                         value={data.content}
-                        className="mt-1 border block w-full py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
-                        onChange={(e) => setData({ content: e.target.value })}
+                        className="mt-1 border block w-full px-3 py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
+                        onChange={(e) =>
+                          setData((prev) => {
+                            return { ...prev, content: e.target.value };
+                          })
+                        }
                       />
                     </div>
                     <div className="bg-gray-50 py-3 sm:flex sm:flex-row-reverse">
@@ -66,7 +75,8 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                         type="button"
                         onClick={() => {
                           setOperationModal(false);
-                          dispatch(setData(data));
+                          // dispatch(setData(data));
+                          operation = "add" ? setItemsInLocalStorage(data) : "";
                         }}
                         className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
                       >

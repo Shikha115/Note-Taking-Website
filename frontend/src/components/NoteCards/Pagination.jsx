@@ -68,6 +68,7 @@ const items = [
 
 function Pagination({ itemsPerPage }) {
   const [items, setItems] = useState(getItemsFromLocalStorage());
+  console.log('items',items);
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;

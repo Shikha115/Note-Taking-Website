@@ -20,6 +20,7 @@ export const CardSearchSlice = createSlice({
     setData: (state, action) => {
       state.data=[...state.data,...action.payload]
     },
+    
   },
 });
 
