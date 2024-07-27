@@ -6,13 +6,18 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import CardModal from "./CardModal";
+import { useSelector } from "react-redux";
 
-function Cards({ notes, input }) {
+function Cards({ notes }) {
+  //input
   const [operationModal, setOperationModal] = useState(false);
-  const [deleteModal, setDeleteModal] = useState(false);
   const [operation, setOperation] = useState("add");
+  const [deleteModal, setDeleteModal] = useState(false);
+  const input = useSelector((state) => state.CardSearch.input);
+  console.log(input, "input");
   const deleteNote = (id) => {
-    setOperationModal(true);
+    setDeleteModal(true);
     setNoteList(noteList.filter((note) => note._id !== id));
   };
 
@@ -36,9 +41,9 @@ function Cards({ notes, input }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
             {notes &&
               notes
-                .filter(({ title }) =>
-                  title.toLowerCase().includes(input.toLowerCase())
-                )
+                // .filter(({ title }) =>
+                //   title.toLowerCase().includes(input.toLowerCase())
+                // )
                 .map((note) => (
                   <div
                     key={note._id}
@@ -76,9 +81,17 @@ function Cards({ notes, input }) {
           </div>
         </div>
       </div>
+
+      {/* ============================== MODAL ==================================== */}
+      <CardModal
+        operationModal={operationModal}
+        setOperationModal={setOperationModal}
+        operation={operation}
+      />
+      {/* ============================== MODAL ==================================== */}
       <Dialog
-        open={operationModal}
-        onClose={() => setOperationModal(false)}
+        open={deleteModal}
+        onClose={() => setDeleteModal(false)}
         className="relative z-10"
       >
         <DialogBackdrop
@@ -98,11 +111,7 @@ function Cards({ notes, input }) {
                     as="h2"
                     className="text-base font-semibold leading-6 text-gray-900"
                   >
-                    {operation == "add"
-                      ? "Add a Note"
-                      : operation == "edit"
-                      ? "Edit the Note"
-                      : "View Note"}
+                    Delete the Note
                   </DialogTitle>
                   <div className="mt-3 text-center sm:mt-0 sm:text-left">
                     <div className="mt-2">

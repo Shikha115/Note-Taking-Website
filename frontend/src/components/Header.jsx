@@ -11,8 +11,16 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import logo from "../assets/images/logo.png";
 import "../assets/scss/style.scss";
+import CardModal from "./NoteCards/CardModal";
+import { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { setInput } from "../slices/CardSearchSlice";
 
-function Header({ setInput, input }) {
+function Header() { //{ setInput, input }
+  const [operationModal, setOperationModal] = useState(false);
+  const [operation, setOperation] = useState("add");
+  const input = useSelector((state) => state.CardSearch.input)
+  const dispatch = useDispatch()
   return (
     <header>
       <Disclosure as="nav" className="bg-gray-800">
@@ -62,13 +70,19 @@ function Header({ setInput, input }) {
                   type="search"
                   placeholder="Search"
                   value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  onChange={(e) => dispatch(setInput(e.target.value))}
                 />
               </div>
 
               {/* Profile dropdown */}
               <div className="relative ml-3">
-                <button className="bg-cyan-500	 text-white py-2 px-3 rounded-md font-medium">
+                <button
+                  className="bg-cyan-500	 text-white py-2 px-3 rounded-md font-medium"
+                  onClick={() => {
+                    setOperation("add");
+                    setOperationModal(true);
+                  }}
+                >
                   Add New Note
                 </button>
               </div>
@@ -76,6 +90,12 @@ function Header({ setInput, input }) {
           </div>
         </div>
       </Disclosure>
+      {/* ============================== MODAL ==================================== */}
+      <CardModal
+        operationModal={operationModal}
+        setOperationModal={setOperationModal}
+        operation={operation}
+      />
     </header>
   );
 }
