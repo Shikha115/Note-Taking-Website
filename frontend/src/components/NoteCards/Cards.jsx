@@ -7,7 +7,7 @@ import {
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
-function Cards({ notes }) {
+function Cards({ notes, input }) {
   const [operationModal, setOperationModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [operation, setOperation] = useState("add");
@@ -35,40 +35,44 @@ function Cards({ notes }) {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
             {notes &&
-              notes.map((note) => (
-                <div
-                  key={note._id}
-                  className="cards p-5 border rounded-lg shadow-lg"
-                >
-                  <h2 className="text-xl text-white font-bold mb-2">
-                    {note.title}
-                  </h2>
-                  <p className="text-gray-100 mb-4">{note.content}</p>
-                  <p className="text-gray-100 text-sm mb-4">
-                    Created at: {new Date(note.timestamp).toLocaleString()}
-                  </p>
-                  <div className="flex space-x-3">
-                    <button
-                      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                      onClick={() => viewNote(note.id)}
-                    >
-                      View
-                    </button>
-                    <button
-                      className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
-                      onClick={() => editNote(note.id)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
-                      onClick={() => deleteNote(note.id)}
-                    >
-                      Delete
-                    </button>
+              notes
+                .filter(({ title }) =>
+                  title.toLowerCase().includes(input.toLowerCase())
+                )
+                .map((note) => (
+                  <div
+                    key={note._id}
+                    className="cards p-5 border rounded-lg shadow-lg"
+                  >
+                    <h2 className="text-xl text-white font-bold mb-2">
+                      {note.title}
+                    </h2>
+                    <p className="text-gray-100 mb-4">{note.content}</p>
+                    <p className="text-gray-100 text-sm mb-4">
+                      Created at: {new Date(note.timestamp).toLocaleString()}
+                    </p>
+                    <div className="flex space-x-3">
+                      <button
+                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                        onClick={() => viewNote(note.id)}
+                      >
+                        View
+                      </button>
+                      <button
+                        className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700"
+                        onClick={() => editNote(note.id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+                        onClick={() => deleteNote(note.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
           </div>
         </div>
       </div>
