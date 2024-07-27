@@ -5,17 +5,17 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { setData } from "../../slices/CardSearchSlice";
 import { setItemsInLocalStorage } from "../../utils/localStorage";
 
 function CardModal({ operationModal, setOperationModal, operation }) {
-  const [data, setData] = useState({});
+  const [inputData, setInputData] = useState({});
   const dispatch = useDispatch();
-  const Check = (data) => {
+
+  const Check = (inputData) => {
     setOperationModal(false);
-    dispatch(setData(data));
+    dispatch(setData(inputData));
 
   };
   return (
@@ -53,32 +53,34 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                       <label>Title</label>
                       <input
                         type="text"
-                        value={data.title}
+                        value={inputData.title}
                         className="mt-1 border block w-full px-3 py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
                         onChange={(e) =>
-                          setData((prev) => {
+                          setInputData((prev) => {
                             return { ...prev, title: e.target.value };
                           })
                         }
+                        readOnly={operation=='view'?true:false}
                       />
                     </div>
                     <div className="mb-3">
                       <label>Content</label>
                       <input
                         type="text"
-                        value={data.content}
+                        value={inputData.content}
                         className="mt-1 border block w-full px-3 py-1 rounded-sm border-gray-300 shadow-sm focus-visible:outline-0"
                         onChange={(e) =>
-                          setData((prev) => {
+                          setInputData((prev) => {
                             return { ...prev, content: e.target.value };
                           })
                         }
+                        readOnly={operation=='view'?true:false}
                       />
                     </div>
                     <div className="bg-gray-50 py-3 sm:flex sm:flex-row-reverse">
                       <button
                         type="button"
-                        onClick={() => {Check(data)}}
+                        onClick={() => {Check(inputData)}}
                         className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
                       >
                         Submit

@@ -1,14 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setItemsInLocalStorage } from "../utils/localStorage";
+import { getItemsFromLocalStorage, setItemsInLocalStorage } from "../utils/localStorage";
 
 const initialState = {
   input: "",
-  data: [
-    {
-      title: "",
-      content: "",
-    },
-  ],
+  data: getItemsFromLocalStorage(),
 };
 
 export const CardSearchSlice = createSlice({

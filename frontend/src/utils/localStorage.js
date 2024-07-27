@@ -1,6 +1,6 @@
 export const getItemsFromLocalStorage = () => {
   const storedItems = localStorage.getItem("items");
-  return storedItems ? JSON.parse(storedItems) : "";
+  return storedItems ? JSON.parse(storedItems) : [];
 };
 
 export const setItemsInLocalStorage = (newItems) => {

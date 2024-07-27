@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -10,14 +10,20 @@ import CardModal from "./CardModal";
 import { useSelector } from "react-redux";
 
 function Cards({ notes, handleCreate, handleUpdate, handleDelete }) {
-
   const [operationModal, setOperationModal] = useState(false);
   const [operation, setOperation] = useState("add");
   const [deleteModal, setDeleteModal] = useState(false);
+  const [notesList, setNotesList] = useState(notes);
   const input = useSelector((state) => state.CardSearch.input);
+  console.log("Cards page - notes", notes);
+
+  useEffect(() => {
+    setNotesList(notes);
+  }, [notes]);
+
   const deleteNote = (id) => {
     setDeleteModal(true);
-    setNoteList(noteList.filter((note) => note._id !== id));
+    setNotesList(notesList.filter((note) => note._id !== id));
   };
 
   const editNote = (id) => {
@@ -38,11 +44,11 @@ function Cards({ notes, handleCreate, handleUpdate, handleDelete }) {
       <div className="note-cards">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-            {notes ? (
-              notes
-                // .filter(({ title }) =>
-                //   title.toLowerCase().includes(input.toLowerCase())
-                // )
+            {notesList.length == 0 ? (
+              notesList
+                .filter(({ title }) =>
+                  title.toLowerCase().includes(input.toLowerCase())
+                )
                 .map((note) => (
                   <div
                     key={note._id}

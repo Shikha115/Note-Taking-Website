@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import Cards from "./Cards";
 import {getItemsFromLocalStorage, setItemsInLocalStorage} from "../../utils/localStorage"
+import { useSelector } from "react-redux";
 // Example items, to simulate fetching from another resources.
 const items = [
   {
@@ -67,7 +68,8 @@ const items = [
 ];
 
 function Pagination({ itemsPerPage }) {
-  // const [items, setItems] = useState(getItemsFromLocalStorage());
+  const data = useSelector((state) => state.CardSearch.data);
+  const [items, setItems] = useState(data);
   
   console.log('items',items);
   const [itemOffset, setItemOffset] = useState(0);
