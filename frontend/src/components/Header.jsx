@@ -12,7 +12,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/images/logo.png";
 import "../assets/scss/style.scss";
 
-function Header() {
+function Header({ setInput, input }) {
   return (
     <header>
       <Disclosure as="nav" className="bg-gray-800">
@@ -57,7 +57,13 @@ function Header() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <input ame="search" type="search" placeholder="Search" />
+                <input
+                  ame="search"
+                  type="search"
+                  placeholder="Search"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                />
               </div>
 
               {/* Profile dropdown */}
