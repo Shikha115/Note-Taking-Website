@@ -9,7 +9,6 @@ export const CardSearchSlice = createSlice({
   initialState,
   reducers: {
     setInput: (state, action) => {
-      console.log("🚀 ~ action:", action);
       state.input = action.payload;
     },
   },
