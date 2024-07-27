@@ -13,6 +13,11 @@ import { setItemsInLocalStorage } from "../../utils/localStorage";
 function CardModal({ operationModal, setOperationModal, operation }) {
   const [data, setData] = useState({});
   const dispatch = useDispatch();
+  const Check = (data) => {
+    setOperationModal(false);
+    dispatch(setData(data));
+
+  };
   return (
     <Dialog
       open={operationModal}
@@ -73,11 +78,7 @@ function CardModal({ operationModal, setOperationModal, operation }) {
                     <div className="bg-gray-50 py-3 sm:flex sm:flex-row-reverse">
                       <button
                         type="button"
-                        onClick={() => {
-                          setOperationModal(false);
-                          // dispatch(setData(data));
-                          operation = "add" ? setItemsInLocalStorage(data) : "";
-                        }}
+                        onClick={() => {Check(data)}}
                         className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
                       >
                         Submit
