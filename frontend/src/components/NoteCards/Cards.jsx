@@ -10,7 +10,7 @@ import CardModal from "./CardModal";
 import { useSelector } from "react-redux";
 
 function Cards({ notes, handleCreate, handleUpdate, handleDelete }) {
-  //input
+
   const [operationModal, setOperationModal] = useState(false);
   const [operation, setOperation] = useState("add");
   const [deleteModal, setDeleteModal] = useState(false);
