@@ -10,6 +10,8 @@ const initialState = {
   cardDataOnClick: {}, // view and edit both
 };
 
+
+
 export const CardSlice = createSlice({
   name: "counter",
   initialState,
