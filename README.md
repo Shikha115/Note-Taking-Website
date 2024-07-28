@@ -60,3 +60,8 @@ Start the server
 ```bash
   npm run dev
 ```
+
+
+## Screenshots
+
+![App Screenshot](https://raw.githubusercontent.com/Shikha115/Note-Taking-Website/main/frontend/src/assets/images/ss/1.png)
