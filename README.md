@@ -4,6 +4,8 @@
 a simplified web application for taking notes that utilizes local storage for data persistence including CRUD operations, pagination.
 
 
+![Logo](https://note-taking-website-eta.vercel.app/assets/logo-Bxbsbmcu.png)
+
 
 ## Features
 
@@ -21,6 +23,17 @@ a simplified web application for taking notes that utilizes local storage for da
 - boost the production uses Vite
 - Packages : react-Pagination, Redux-Tool-Kit (RTK)
 - Storage : localstorage
+
+
+## Deployment
+
+This project is live on
+
+```bash
+  https://note-taking-website-eta.vercel.app/
+```
+
+
 
 ## Run Locally
 
@@ -47,4 +60,3 @@ Start the server
 ```bash
   npm run dev
 ```
-
